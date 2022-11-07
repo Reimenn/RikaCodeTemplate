@@ -1,0 +1,86 @@
+{
+  "name": "rikacodetemplate",
+  "displayName": "Rika Code Template",
+  "description": "a code template tool like vscode snippet",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": [
+    "Snippets"
+  ],
+  "activationEvents": [
+    "onCommand:rikacodetemplate.run"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "Templates",
+      "properties": {
+        "rikacodetemplate.templates": {
+          "type": "array",
+          "default": [
+            {
+              "language": "go",
+              "regex": "^(\\*?\\w+) func$",
+              "template": [
+                "func ({!1 firstLetter toLower!} {!1!})$1($2){",
+                "\t$3",
+                "}"
+              ]
+            },
+            {
+              "language": "go",
+              "regex": "^(\\*?\\w+) func (\\w+)$",
+              "template": [
+                "func ({!1 firstLetter toLower!} {!1!}){!2!}($1){",
+                "\t$2",
+                "}"
+              ]
+            },
+            {
+              "language": "java|csharp",
+              "regex": "^(.*).var$",
+              "template": "var $1 = {!1!};"
+            },
+            {
+              "language": "javascript",
+              "regex": "^(.*).let$",
+              "template": "let $1 = {!1!}"
+            }
+          ]
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "rikacodetemplate.run",
+        "title": "rika code template active"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^8.0.0",
+    "@types/mocha": "^10.0.0",
+    "@types/node": "16.x",
+    "@types/vscode": "^1.60.0",
+    "@typescript-eslint/eslint-plugin": "^5.42.0",
+    "@typescript-eslint/parser": "^5.42.0",
+    "@vscode/test-electron": "^2.2.0",
+    "eslint": "^8.26.0",
+    "glob": "^8.0.3",
+    "mocha": "^10.1.0",
+    "typescript": "^4.8.4"
+  },
+  "dependencies": {
+    "vsce": "^2.13.0"
+  }
+}
